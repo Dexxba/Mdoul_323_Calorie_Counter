@@ -26,8 +26,8 @@
  <table class="mealTable" id="mealsList">
     <thead>
         <tr>
-            <th>Meal Name</th>
-            <th>Calories</th>
+            <th>Meal-Name <i class="fas fa-utensils"></i> </th>
+            <th>Calories <i class="fas fa-fire"></i></th>
         </tr>
     </thead>
     <tbody>
@@ -63,7 +63,8 @@
      function updateTotalCalories() {
         var mealsData = JSON.parse(localStorage.getItem("mealsData"))  || [];
         var totalCalories = mealsData.reduce((acc, meal) => acc + parseInt(meal.caloriesNumber, 10), 0);
-        document.getElementById('totalCalories').innerText="Total calories: "+totalCalories+' Cal';
+        document.getElementById('totalCalories').innerHTML = "Total calories: " + totalCalories + ' Cal'  +  '<i class="fas fa-fire"></i> ';
+
     }
 
     //  Function to add data in the table and update calories
