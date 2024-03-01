@@ -1,0 +1,124 @@
+/* Osnovni reset CSS-a za uklanjanje margina i paddinga */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header, .footer {
+    width: 100%;
+    position: fixed;
+    background-color: #47587c;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+}
+.header i {
+    margin-right: 10px;
+}
+.footer i {
+    margin-left: 10px;
+}
+
+.header {
+    top: 0;
+}
+
+.footer {
+    bottom: 0;
+}
+
+.wrapper {
+    flex: 1;
+    width: 90%;
+    max-width: 600px; /* Možete prilagoditi maksimalnu širinu prema potrebi */
+    margin: 60px auto; /* Povećajte gornji i donji margin ako želite više prostora */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.infomrations {
+    width: 120%;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.infomrationContentText input[type="text"], .infomrationButtons button {
+    width: calc(100% - 20px); /* Oduzimamo padding */
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.infomrationButtons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%; /* Ovo osigurava da dugmad koriste dostupnu širinu */
+    gap: 10px; /* Dodaje razmak između dugmadi */
+}
+
+button {
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 10px 20px;
+}
+
+#saveButton {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#cancelButton {
+    background-color: #f44336;
+    color: white;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.mealTable {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.mealTable th, .mealTable td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+#totalCalories {
+    margin-top: 20px;
+    font-weight: bold;
+    color: #333;
+    transition: all 0.5s ease;
+}
+
+/* Animacija za prikazivanje promene ukupnih kalorija */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+#totalCalories {
+    animation: fadeIn 1s;
+}
