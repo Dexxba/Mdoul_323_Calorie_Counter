@@ -73,8 +73,8 @@
         var newRow = table.insertRow(-1);
         var cell1 = newRow.insertCell(0);
         var cell2 = newRow.insertCell(1);
-        cell1.innerHTML =mealName;
-        cell2.innerHTML=caloriesNumber+" Cal" + " " +'<button class="deleteButton" onclick="deleteRow(this)"><i class="fas fa-trash"></i></button>';
+         cell1.innerHTML = mealName  +  '<i class="fas fa-utensils"></i> ';
+         cell2.innerHTML = '<i class="fas fa-fire"></i> ' + caloriesNumber + " Cal" + '<button class="deleteButton" onclick="deleteRow(this)"><i class="fas fa-trash"></i></button>';
         updateTotalCalories();
     }
 
