@@ -1,4 +1,4 @@
-/* Osnovni reset CSS-a za uklanjanje margina i paddinga */
+
 * {
     margin: 0;
     padding: 0;
@@ -40,8 +40,8 @@ body, html {
 .wrapper {
     flex: 1;
     width: 90%;
-    max-width: 600px; /* Možete prilagoditi maksimalnu širinu prema potrebi */
-    margin: 60px auto; /* Povećajte gornji i donji margin ako želite više prostora */
+    max-width: 600px; 
+    margin: 60px auto; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -60,7 +60,7 @@ body, html {
 }
 
 .infomrationContentText input[type="text"], .infomrationButtons button {
-    width: calc(100% - 20px); /* Oduzimamo padding */
+    width: calc(100% - 20px); 
     padding: 10px;
     margin: 10px 0;
 }
@@ -68,8 +68,8 @@ body, html {
 .infomrationButtons {
     display: flex;
     justify-content: space-between;
-    width: 100%; /* Ovo osigurava da dugmad koriste dostupnu širinu */
-    gap: 10px; /* Dodaje razmak između dugmadi */
+    width: 100%; 
+    gap: 10px; 
 }
 
 button {
@@ -113,7 +113,7 @@ button:hover {
     transition: all 0.5s ease;
 }
 
-/* Animacija za prikazivanje promene ukupnih kalorija */
+
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
