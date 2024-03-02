@@ -11,7 +11,6 @@
     <header class="header">
         <i class="fas fa-calculator"></i> Calories Counter
     </header>    
-<div class="wraper">
  <div class="infomrations">
     <div class="infomrationContentText">
         <label for="mealName">Meal</label><br>
@@ -35,7 +34,6 @@
  </table>
  <div id="totalCalories">Total Calories : 0 Cal</div>
  </div>
-</div>
 <footer class="footer">
     Let's track your calories <i class="fas fa-hamburger"></i>
 </footer>
@@ -45,10 +43,10 @@
 
     // Save function modified to use localStorage
     function save(){
-        var mealName = document.getElementById( 'mealName' ).value;
-        var caloriesNumber = document.getElementById( 'caloriesNumber' ).value;
+        const mealName = document.getElementById( 'mealName' ).value;
+        const caloriesNumber = document.getElementById( 'caloriesNumber' ).value;
         if (mealName && caloriesNumber){
-           var mealsData = JSON.parse(localStorage.getItem("mealsData")) || [];
+            const mealsData = JSON.parse(localStorage.getItem("mealsData")) || [];
            mealsData.push({mealName: mealName, caloriesNumber: caloriesNumber}) ;
            localStorage.setItem("mealsData",JSON.stringify(mealsData));
 
@@ -61,19 +59,19 @@
 
      // Funktion to update total calories
      function updateTotalCalories() {
-        var mealsData = JSON.parse(localStorage.getItem("mealsData"))  || [];
-        var totalCalories = mealsData.reduce((acc, meal) => acc + parseInt(meal.caloriesNumber, 10), 0);
+        const mealsData = JSON.parse(localStorage.getItem("mealsData"))  || [];
+        const totalCalories = mealsData.reduce((acc, meal) => acc + parseInt(meal.caloriesNumber, 10), 0);
         document.getElementById('totalCalories').innerHTML = "Total calories: " + totalCalories + ' Cal'  +  '<i class="fas fa-fire"></i> ';
 
     }
 
     //  Function to add data in the table and update calories
     function addToTable(mealName,caloriesNumber){
-        var table = document.getElementById('mealsList').getElementsByTagName('tbody')[0];
+        const table = document.getElementById('mealsList').getElementsByTagName('tbody')[0];
         //Create a row for each object in array
-        var newRow = table.insertRow(-1);
-        var cell1 = newRow.insertCell(0);
-        var cell2 = newRow.insertCell(1);
+        const newRow = table.insertRow(-1);
+        const cell1 = newRow.insertCell(0);
+        const cell2 = newRow.insertCell(1);
          cell1.innerHTML = mealName  +  '<i class="fas fa-utensils"></i> ';
          cell2.innerHTML = '<i class="fas fa-fire"></i> ' + caloriesNumber + " Cal" + '<button class="deleteButton" onclick="deleteRow(this)"><i class="fas fa-trash"></i></button>';
         updateTotalCalories();
@@ -81,7 +79,7 @@
 
     // Load meals from local storage
     function loadmeals() {
-        var mealsData = JSON.parse(localStorage.getItem("mealsData")) || [];
+        const mealsData = JSON.parse(localStorage.getItem("mealsData")) || [];
         mealsData.forEach(function(meal) {
             addToTable(meal.mealName,meal.caloriesNumber);
         });
@@ -91,10 +89,10 @@
 
     // Delete row from HTML Table and local storage and  update total calories
     function deleteRow(button) {
-        var row = button.parentNode.parentNode;
-        var mealNameToDelete = row.cells[0].innerText;
-        var mealsData = JSON.parse(localStorage.getItem("mealsData"));
-        var filterMeals = mealsData.filter(meal => meal.mealName !== mealNameToDelete);
+        const row = button.parentNode.parentNode;
+        const mealNameToDelete = row.cells[0].innerText;
+        const mealsData = JSON.parse(localStorage.getItem("mealsData"));
+        const filterMeals = mealsData.filter(meal => meal.mealName !== mealNameToDelete);
         localStorage.setItem('mealsData',JSON.stringify(filterMeals));
         row.parentNode.removeChild(row);
         updateTotalCalories();
