@@ -25,8 +25,8 @@
  <table class="mealTable" id="mealsList">
     <thead>
         <tr>
-            <th>Meal-Name <i class="fas fa-utensils"></i> </th>
-            <th>Calories <i class="fas fa-fire"></i></th>
+            <th>Meal-Name&nbsp; <i class="fas fa-utensils"></i></th>
+            <th>Calories&nbsp; <i class="fas fa-fire"></i></th>
         </tr>
     </thead>
     <tbody>
@@ -38,76 +38,66 @@
     Let's track your calories <i class="fas fa-hamburger"></i>
 </footer>
 <script>
-    // get the elements from HTML 
-    document.getElementById('saveButton').addEventListener("click", save);
+// Initialization
+document.getElementById('saveButton').addEventListener("click", saveMeal);
+document.getElementById('cancelButton').addEventListener("click", cancelForm);
+document.addEventListener("DOMContentLoaded", loadMeals);
 
-    // Save function modified to use localStorage
-    function save(){
-        const mealName = document.getElementById( 'mealName' ).value;
-        const caloriesNumber = document.getElementById( 'caloriesNumber' ).value;
-        if (mealName && caloriesNumber){
-            const mealsData = JSON.parse(localStorage.getItem("mealsData")) || [];
-           mealsData.push({mealName: mealName, caloriesNumber: caloriesNumber}) ;
-           localStorage.setItem("mealsData",JSON.stringify(mealsData));
+// Helper functions for data manipulation
+const addMeal = (meals, newMeal) => [...meals, newMeal]; 
+const removeMealByName = (meals, mealNameToRemove) => meals.filter(meal => meal.mealName !== mealNameToRemove); 
+const calculateTotalCalories = (meals) => meals.reduce((acc, {caloriesNumber}) => acc + parseInt(caloriesNumber, 10), 0); 
+const getMealsFromStorage = () => JSON.parse(localStorage.getItem("mealsData")) || []; 
+const saveMealsToStorage = (meals) => localStorage.setItem("mealsData", JSON.stringify(meals)); 
 
-           //Add ing new data in the table
-           addToTable(mealName, caloriesNumber);
-        } else {
-            alert("Please enter both a meal name and the number of calories.");
-        }
+// DOM manipulation
+const addToTable = (mealName, caloriesNumber) => {
+    const table = document.getElementById('mealsList').getElementsByTagName('tbody')[0];
+    // Inserts a new row with meal information at the end of the table
+    const newRow = table.insertRow(-1);
+    newRow.innerHTML = `<td><i class="fas fa-utensils"></i>&nbsp${mealName}</td><td><i class="fas fa-fire"></i>&nbsp ${caloriesNumber} Cal <button class="deleteButton" onclick="deleteMeal('${mealName}')"><i class="fas fa-trash"></i></button></td>`;
+};
+
+const updateTotalCaloriesDisplay = () => {
+    // Updates the display of total calories based on the meals in storage
+    const totalCalories = calculateTotalCalories(getMealsFromStorage());
+    document.getElementById('totalCalories').innerHTML = `Total calories: ${totalCalories} Cal <i class="fas fa-fire"></i>&nbsp`;
+};
+
+// Event-related functions
+function saveMeal() {
+    // Retrieves meal name and calories from input fields
+    const mealName = document.getElementById('mealName').value;
+    const caloriesNumber = document.getElementById('caloriesNumber').value;
+    if (!mealName || !caloriesNumber) {
+        alert("Please enter both a meal name and the number of calories.");
+        return;
     }
+    const meals = getMealsFromStorage();
+    const updatedMeals = addMeal(meals, {mealName, caloriesNumber}); 
+    saveMealsToStorage(updatedMeals); 
+    addToTable(mealName, caloriesNumber); 
+    updateTotalCaloriesDisplay(); 
+}
 
-     // Funktion to update total calories
-     function updateTotalCalories() {
-        const mealsData = JSON.parse(localStorage.getItem("mealsData"))  || [];
-        const totalCalories = mealsData.reduce((acc, meal) => acc + parseInt(meal.caloriesNumber, 10), 0);
-        document.getElementById('totalCalories').innerHTML = "Total calories: " + totalCalories + ' Cal'  +  '<i class="fas fa-fire"></i> ';
+function loadMeals() {
+    // Loads meals on page load and populates the table
+    const meals = getMealsFromStorage();
+    meals.forEach(({mealName, caloriesNumber}) => addToTable(mealName, caloriesNumber));
+    updateTotalCaloriesDisplay();
+}
 
-    }
+function deleteMeal(mealName) {
+    // Deletes a meal and updates the display
+    const meals = getMealsFromStorage();
+    const updatedMeals = removeMealByName(meals, mealName);
+    saveMealsToStorage(updatedMeals);
+    document.location.reload(); 
+}
 
-    //  Function to add data in the table and update calories
-    function addToTable(mealName,caloriesNumber){
-        const table = document.getElementById('mealsList').getElementsByTagName('tbody')[0];
-        //Create a row for each object in array
-        const newRow = table.insertRow(-1);
-        const cell1 = newRow.insertCell(0);
-        const cell2 = newRow.insertCell(1);
-         cell1.innerHTML = mealName  +  '<i class="fas fa-utensils"></i> ';
-         cell2.innerHTML = '<i class="fas fa-fire"></i> ' + caloriesNumber + " Cal" + '<button class="deleteButton" onclick="deleteRow(this)"><i class="fas fa-trash"></i></button>';
-        updateTotalCalories();
-    }
-
-    // Load meals from local storage
-    function loadmeals() {
-        const mealsData = JSON.parse(localStorage.getItem("mealsData")) || [];
-        mealsData.forEach(function(meal) {
-            addToTable(meal.mealName,meal.caloriesNumber);
-        });
-        updateTotalCalories();
-        
-    }
-
-    // Delete row from HTML Table and local storage and  update total calories
-    function deleteRow(button) {
-        const row = button.parentNode.parentNode;
-        const mealNameToDelete = row.cells[0].innerText;
-        const mealsData = JSON.parse(localStorage.getItem("mealsData"));
-        const filterMeals = mealsData.filter(meal => meal.mealName !== mealNameToDelete);
-        localStorage.setItem('mealsData',JSON.stringify(filterMeals));
-        row.parentNode.removeChild(row);
-        updateTotalCalories();
-        
-    }
-
-    // Load meals on page load and update total calories
-    document.addEventListener("DOMContentLoaded", function() {loadmeals();});
-
-    // Cancel Button Functionality
-    document.getElementById('cancelButton').addEventListener("click", cancelForm);
-
-    function cancelForm() {
-        location.reload();
-    }
+function cancelForm() {
+    location.reload(); 
+}
 </script>   
 </body>
 </html>
