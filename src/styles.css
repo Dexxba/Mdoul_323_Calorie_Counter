@@ -70,12 +70,12 @@ button {
 }
 
 #saveButton {
-    background-color: #4CAF50;
+    background-color: #539e56;
     color: white;
 }
 
 #cancelButton {
-    background-color: #f44336;
+    background-color: #d6544b;
     color: white;
 }
 
@@ -92,13 +92,13 @@ button:hover {
 .mealTable th, .mealTable td {
     text-align: left;
     padding: 8px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #dddddd;
 }
 
 #totalCalories {
     margin-top: 20px;
     font-weight: bold;
-    color: #333;
+    color: #814273;
     transition: all 0.5s ease;
 }
 
@@ -115,10 +115,10 @@ button:hover {
     font-family: fantasy;
 }
 label[for="mealName"] {
-    color: blue; 
+    color: rgb(93, 93, 199); 
     font-weight: bold;
   }
   label[for="caloriesNumber"] {
-    color: rgb(196, 28, 36); 
+    color: rgb(226, 102, 108); 
     font-weight: bold;
   }
